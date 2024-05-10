@@ -77,4 +77,40 @@ router.post("/signup", async (req, res) => {
   }
 });
 
+
+router.post("/collections", async (req, res) => {
+  try {
+    const { userId, name } = req.body;
+    // Find user by ID
+    const user = await User.findById(userId);
+    // Create new collection
+    user.collections.push({ name, recipes: [] });
+    await user.save();
+    res.status(201).json({ message: "Collection created successfully" });
+  } catch (error) {
+    console.error("Error creating collection:", error);
+    res.status(500).json({ error: "Failed to create collection" });
+  }
+});
+
+// Route to add a recipe to a collection
+router.post("/collections/:collectionId/add", async (req, res) => {
+  try {
+    const { collectionId } = req.params;
+    const { recipeId } = req.body;
+    // Find collection by ID
+    const collection = await User.updateOne(
+      { "collections._id": collectionId },
+      { $addToSet: { "collections.$.recipes": recipeId } }
+    );
+    res
+      .status(200)
+      .json({ message: "Recipe added to collection successfully" });
+  } catch (error) {
+    console.error("Error adding recipe to collection:", error);
+    res.status(500).json({ error: "Failed to add recipe to collection" });
+  }
+});
+
+
 module.exports = router;

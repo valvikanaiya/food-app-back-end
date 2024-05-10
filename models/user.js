@@ -35,6 +35,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
+  likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Recipe" }],
+  favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: "Recipe" }],
   // Timestamp of when the user account was created
   createdAt: {
     type: Date,
