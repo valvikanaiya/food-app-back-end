@@ -10,4 +10,4 @@ app.use(express.json());
 app.use("/api/v1/post", postRout);
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/recipes", recipeRoutes);
-app.listen(3001);
+app.listen(3002);

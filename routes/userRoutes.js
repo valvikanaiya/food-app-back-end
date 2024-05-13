@@ -35,8 +35,7 @@ router.post("/signup", async (req, res) => {
         // Add other details you need here
       };
       const userCount = await User.find({ email: userDetails.email });
-      res.send(userCount);
-      if (!userCount) {
+      if (!userCount.length > 0) {
         const newUser = new User(userDetails);
         const user = await newUser.save();
         const { email, fullName, profilePicture, username, _id } = user._doc;
@@ -77,7 +76,6 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-
 router.post("/collections", async (req, res) => {
   try {
     const { userId, name } = req.body;
@@ -111,6 +109,5 @@ router.post("/collections/:collectionId/add", async (req, res) => {
     res.status(500).json({ error: "Failed to add recipe to collection" });
   }
 });
-
 
 module.exports = router;

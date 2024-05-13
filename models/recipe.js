@@ -2,7 +2,7 @@
 const mongoose = require("mongoose");
 
 const recipeSchema = new mongoose.Schema({
-  title: { type: String, required: true },
+  name: { type: String, required: true },
   description: String,
   //   ingredients: [
   //     {
@@ -27,6 +27,7 @@ const recipeSchema = new mongoose.Schema({
       createdAt: { type: Date, default: Date.now },
     },
   ],
+  rating: { type: Number },
   // Add more fields as needed
 
   prepTimeMinutes: { type: Number, required: true },
